@@ -7,6 +7,7 @@ A legistalão atinente a práica médica, tais como as implementadas pela legisl
 - Conselho Federal de Medicina (CFM);
 - Lei do Ato Médico, Lei nº 12.842/2013;
 - Resolução CFM n° 2.217, de 27 de setembro de 2018, modificada pelas Resoluções CFM nº 2.222/2018 e 2.226/2019;
+
 Deverá ser respeitada pela aplicação, como se vê, que todo médico ou clínica participante só poderá afirmar ser especialista ou fazer propaganda de sua prática se tiver ceritificação apta e comprovada da sua capacidade,
 de igual maneira, toda indicação feita pela aplicação é, validada, por testes e participação, de especialistas médicos. Aponta que procedimentos estéticos ou outros confundidos de profissionais não médicos não serão
 indicados pela aplicação.
