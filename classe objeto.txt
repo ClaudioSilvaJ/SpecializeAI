@@ -1,0 +1,59 @@
+Criação do modelo Classe/Objeto:
+
+classDiagram
+class APIController {
+-port: number
+-host: string
+-pythonPath: string
++startServer()
++stopServer()
++handleInference(data: JSON): Promise<Result>
++connectToPythonEngine()
+-validateRequest(req: Request)
+}
+
+
+
+class IAEngine {
+    -knowledgeBase: RuleBase
+    -workingMemory: FactBase
+    -inferenceEngine: InferenceEngine
+    +loadKnowledgeBase(rules: Rule[])
+    +addFact(fact: Fact)
+    +runInference(): Result
+    +explainReasoning(): string
+    -validateRules(rules: Rule[])
+}
+class DatabaseManager {
+    -connection: Connection
+    -config: DBConfig
+    +connect()
+    +disconnect()
+    +saveRules(rules: Rule[])
+    +loadRules(): Rule[]
+    +saveFacts(facts: Fact[])
+    +loadFacts(): Fact[]
+    +saveInferenceResults(result: Result)
+    -handleError(error: Error)
+}
+class Rule {
+    -id: string
+    -conditions: Condition[]
+    -actions: Action[]
+    -priority: number
+    +evaluate(): boolean
+    +execute()
+}
+class Fact {
+    -id: string
+    -type: string
+    -value: any
+    -timestamp: Date
+    +matches(condition: Condition): boolean
+}
+APIController --> IAEngine
+APIController --> DatabaseManager
+IAEngine --> Rule
+IAEngine --> Fact
+DatabaseManager --> Rule
+DatabaseManager --> Fact
