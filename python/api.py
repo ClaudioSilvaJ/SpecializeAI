@@ -5,9 +5,11 @@ from model import model
 import pandas as pd
 import re
 import unicodedata
+from recuperacao import Recuperacao
 
 
 app = FastAPI()
+recuperacao = Recuperacao()
 
 class MessageRequest(BaseModel):
     message: str
@@ -37,9 +39,7 @@ async def extract_symptoms(request: MessageRequest):
             {}'''.format(message),
         },
     ])
-    print("teste")
     print(result["message"]["content"])
-    print("teste")
 
     sintomas = buscar_referencias(result["message"]["content"], df)
 
@@ -61,7 +61,11 @@ df = pd.read_csv('assets/datasets/sintomas_variacoes.csv')
 def buscar_referencias(texto, df):
     referencias_encontradas = []
     texto_normalizado = remover_acentos(texto.lower())
-    
+    lista = re.split(r'[,\n;]+|\s{2,}', texto_normalizado)
+    lista = [item.strip() for item in lista if item.strip()]
+
+    lista_recuperada = [recuperacao.recuperar_sentence(item) for item in lista]
+    lista_recuperada = [remover_acentos(item.lower()) for item in lista_recuperada]
     for _, row in df.iterrows():
         referencia = row['referencia']
         referencia_normalizada = remover_acentos(referencia.lower())
@@ -71,7 +75,12 @@ def buscar_referencias(texto, df):
 
         regex = '|'.join(map(re.escape, todas_variacoes))
 
-        if re.search(regex, texto_normalizado):
-            referencias_encontradas.append(referencia)
-    
+        for item in lista_recuperada:
+            print(item)
+            if re.search(regex, item):
+                referencias_encontradas.append(referencia)
+                lista_recuperada.remove(item)
+                break
+    print(referencias_encontradas)
     return referencias_encontradas
+

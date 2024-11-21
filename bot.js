@@ -40,7 +40,7 @@ async function connectWhats() {
 
     if (now - lastTimestamp > 600000) {
       lastMessageTimestamps.set(remoteJid, now);
-      await sock.sendMessage(remoteJid, { text: 'Olá! Esse bot se encontra em versão experimental, siga as instruções: \nDescreva seus sintomas em sequencia não é necessario separar por mensagens envie tudo em uma unica mensagem, não é necessario usar linguagem tecnica ou direta' });
+      await sock.sendMessage(remoteJid, { text: 'Olá! Este bot está em fase experimental. Siga as instruções abaixo: Descreva seus sintomas em sequência. Não é necessário enviar mensagens separadas; você pode enviar tudo em uma única mensagem. Também não é preciso usar linguagem técnica ou formal.' });
       return;
     }
     if (!messageBuffers.has(remoteJid)) {
